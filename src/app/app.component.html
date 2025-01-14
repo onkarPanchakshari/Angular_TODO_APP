@@ -1,0 +1,91 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card" id="list1" style="border-radius: .75rem; background-color: #bbdcec;">
+          <div class="card-body py-4 px-4 px-md-5">
+
+            <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+              <i class="fas fa-check-square me-1"></i>
+              <u>My TodoApp</u>
+            </p>
+
+            <form [formGroup]="Todolist">
+            <div class="pb-2">
+              <div class="card">
+                <div class="card-body">
+            
+                  <div class="d-flex flex-row align-items-center">
+                    <input type="text" formControlName="task" class="form-control form-control-lg" id="exampleFormControlInput1"
+                      placeholder="Add new..." >
+                      <div class="text-danger">
+                      @if(Todolist.controls['task'].touched){
+                        @if(Todolist.controls['task'].errors?.['required']){
+                          <span> Task is Required</span>
+                        }
+                        
+                      }
+                    </div>
+                    <a href="#!" data-mdb-tooltip-init title="Set due date"><i
+                        class="fas fa-calendar-alt fa-lg me-3"></i></a>
+                    <div>
+                      @if(Todolist.controls['id'].value == '1'){
+                      <button  type="button" [disabled]="Todolist.invalid"  (click)="onSave()" data-mdb-ripple-init class="btn btn-primary">Add</button>
+                      }@else
+                      {
+                        <button  type="button" [disabled]="Todolist.invalid" (click)="onUpdate()" data-mdb-ripple-init class="btn btn-primary">Update task</button>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
+              <p  class="small mb-0 me-2 text-muted">Filter</p>
+              <select data-mdb-select-init formControlName="Stats">
+                <option value="All">All</option>
+                <option value="Complete">Completed</option>
+                <option value="Active">Active</option>
+                <option value="Has due date">Has due date</option>
+              </select>
+              
+              <p   class="small mb-0 ms-4 me-2 text-muted">Date</p>
+              <input formControlName="DueData" type="date"  class="">
+              
+              <a href="#!" style="color: #23af89;" data-mdb-tooltip-init title="Ascending"><i
+                  class="fas fa-sort-amount-down-alt ms-2"></i></a>
+            </div>
+          </form>
+          <div class="row">
+           
+            <table class="table table-bordered" style="margin: 2%; " >
+             
+               @for(item of todolistlist; track $index){
+                 <tr class="pb-2" style="word-spacing: 3%;">
+             
+               <td class="text-center">{{$index+1}}</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <td class="text-center">{{item.task}}</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <td class="text-center">{{item.Stats}}</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <td class="text-center">{{item.DueData}}</td>&nbsp;&nbsp;&nbsp;
+               <td class="text-center">
+                 <button class="btn btn-primary" style="background-color: blue;" (click)="onEdit(item)">Edit</button>
+                 <button class="btn btn-danger mx-2" style="background-color: red" (click)="onDelete(item.id)">Delete</button>
+               </td>
+ 
+              
+              
+             
+           </tr>
+         }
+           </table>
+         </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
